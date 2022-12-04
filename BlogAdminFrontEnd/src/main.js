@@ -49,8 +49,6 @@ import 'mavon-editor/dist/css/index.css'
 
 // 配置根本请求路径
 axios.defaults.baseURL = "http://127.0.0.1:8000/"
-// axios.defaults.baseURL = "http://121.41.36.45:8000/"
-// axios.defaults.baseURL = "http://172.31.213.96:8000/"
 
 // 通过请求拦截器在请求头中添加Token，所有的请求都会先经过这个拦截器
 axios.interceptors.request.use((config)=>{

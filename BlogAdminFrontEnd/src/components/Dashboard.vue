@@ -16,7 +16,7 @@
                         </div>
                         <ul>
                             <li style="color: white; font-size: 24px; font-weight: blod">访问量</li>
-                            <li style="color: white; font-size: 30px; font-weight: blod">50, 000</li>
+                            <li style="color: white; font-size: 30px; font-weight: blod">{{ browseNum }}</li>
                         </ul>
                     </div>
                 </el-card>
@@ -30,7 +30,7 @@
                         </div>
                         <ul>
                             <li style="color: white; font-size: 24px; font-weight: blod">文章数</li>
-                            <li style="color: white; font-size: 30px; font-weight: blod">50, 000</li>
+                            <li style="color: white; font-size: 30px; font-weight: blod">{{ articleNum }}</li>
                         </ul>
                     </div>
                 </el-card>
@@ -44,7 +44,7 @@
                         </div>
                         <ul>
                             <li style="color: white; font-size: 24px; font-weight: blod">阅读量</li>
-                            <li style="color: white; font-size: 30px; font-weight: blod">50, 000</li>
+                            <li style="color: white; font-size: 30px; font-weight: blod">{{ readNum }}</li>
                         </ul>
                     </div>
                 </el-card>
@@ -58,7 +58,7 @@
                         </div>
                         <ul>
                             <li style="color: white; font-size: 24px; font-weight: blod">点赞数</li>
-                            <li style="color: white; font-size: 30px; font-weight: blod">50, 000</li>
+                            <li style="color: white; font-size: 30px; font-weight: blod">{{ thumbNum }}</li>
                         </ul>
                     </div>
                 </el-card>
@@ -74,7 +74,7 @@
                      <div id="daliy-user" style="width: 100%; height: 400px"></div>
                 </el-card>
                 <el-card class="box-card">
-                     <div id="thumb" style="width: 100%; height: 400px"></div>
+                     <div id="browse" style="width: 100%; height: 400px"></div>
                 </el-card>
             </el-col>
             <el-col :span="12">
@@ -91,21 +91,28 @@
 
 <script>
 export default {
-   data(){
-       return {
-          
+    data(){
+        return {
+            readNum: 0,
+            thumbNum: 0,
+            articleNum: 0,
+            browseNum: 0,
+            articleTitleList: [],
+            articleBrowseList: [],
+            dateList: [],
+            dailyBrowseList: [],
+            dailyUserList: [],
+            categoryList: [],
+            tagList: []
        }
-   },
+    },
 
-   mounted(){
-        this.dailyBrowse();
-        this.dailyUser();
-        this.thumbCount();
-        this.categoryDetail();
-        this.tagDetail();
-   },
+    created(){
+        this.getDashboardData()
+    },
 
-   methods: {
+
+    methods: {
         dailyBrowse(){
             var myChart = this.$echarts.init(document.getElementById('daliy-browse'));
 
@@ -121,14 +128,18 @@ export default {
                 ],
                 xAxis: {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Sun', 'Sun', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Sun', 'Sun', 'Sun']
+                    data: this.dateList,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: -45,
+                    }
                 },
                 yAxis: {
                     type: 'value'
                 },
                 series: [
                     {
-                    data: [150, 230, 224, 218, 135, 147, 260, 260, 260, 260, 150, 230, 224, 218, 135, 147, 260, 260, 260, 260],
+                    data: this.dailyBrowseList,
                     type: 'line'
                     }
                 ],
@@ -136,9 +147,9 @@ export default {
                         backgroundColor: 'rgba(32, 33, 36,.7)',
                         borderColor: 'rgba(32, 33, 36,0.20)',
                         borderWidth: 1,
-                        textStyle: { // 文字提示样式
-                        color: '#fff',
-                        fontSize: '12'
+                        textStyle: {
+                            color: '#fff',
+                            fontSize: '12'
                     }
                 }
             };
@@ -161,14 +172,18 @@ export default {
                 ],
                 xAxis: {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Sun', 'Sun', 'Sun']
+                    data: this.dateList,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: -45,
+                    }
                 },
                 yAxis: {
                     type: 'value'
                 },
                 series: [
                     {
-                    data: [150, 230, 224, 218, 135, 147, 260, 260, 260, 260],
+                    data: this.dailyUserList,
                     type: 'line'
                     }
                 ],
@@ -186,12 +201,12 @@ export default {
 
         },
 
-        thumbCount(){
-            var myChart = this.$echarts.init(document.getElementById('thumb'));
+        browseCount(){
+            var myChart = this.$echarts.init(document.getElementById('browse'));
 
             var option = {
                 title: {
-                    text: '点赞数排名',
+                    text: '文章阅读量排名',
                     x: 'center'
                 },
                 dataZoom:[
@@ -201,24 +216,28 @@ export default {
                 ],
                 xAxis: {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Sun', 'Sun', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Sun', 'Sun', 'Sun']
+                    data: this.articleTitleList,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: -45,
+                    }
                 },
                 yAxis: {
                     type: 'value'
                 },
                 series: [
                     {
-                        data: [150, 230, 224, 218, 135, 147, 260, 260, 260, 260, 150, 230, 224, 218, 135, 147, 260, 260, 260, 260],
-                        type: 'bar'
+                        type: 'bar',
+                        data: this.articleBrowseList
                     }
                 ],
                 tooltip: { 
                         backgroundColor: 'rgba(32, 33, 36,.7)',
                         borderColor: 'rgba(32, 33, 36,0.20)',
                         borderWidth: 1,
-                        textStyle: { // 文字提示样式
-                        color: '#fff',
-                        fontSize: '12'
+                        textStyle: { 
+                            color: '#fff',
+                            fontSize: '12'
                     }
                 }
             };
@@ -231,7 +250,6 @@ export default {
             var option = {
                 title: {
                     text: '文章分类',
-                    subtext: 'Fake Data',
                     left: 'center'
                 },
                 tooltip: {
@@ -243,23 +261,17 @@ export default {
                 },
                 series: [
                     {
-                    name: 'Access From',
-                    type: 'pie',
-                    radius: '70%',
-                    data: [
-                        { value: 1048, name: 'Search Engine' },
-                        { value: 735, name: 'Direct' },
-                        { value: 580, name: 'Email' },
-                        { value: 484, name: 'Union Ads' },
-                        { value: 300, name: 'Video Ads' }
-                    ],
-                    emphasis: {
-                        itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        name: '文章分类详情数据',
+                        type: 'pie',
+                        radius: '70%',
+                        data: this.categoryList,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
                         }
-                    }
                     }
                 ]
             };
@@ -272,7 +284,6 @@ export default {
             var option = {
                 title: {
                     text: '文章标签',
-                    subtext: 'Fake Data',
                     left: 'center'
                 },
                 tooltip: {
@@ -284,28 +295,47 @@ export default {
                 },
                 series: [
                     {
-                    name: 'Access From',
+                    name: '文章标签详情数据',
                     type: 'pie',
                     radius: '70%',
-                    data: [
-                        { value: 1048, name: 'Search Engine' },
-                        { value: 735, name: 'Direct' },
-                        { value: 580, name: 'Email' },
-                        { value: 484, name: 'Union Ads' },
-                        { value: 300, name: 'Video Ads' }
-                    ],
+                    data: this.tagList,
                     emphasis: {
-                        itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
                         }
-                    }
                     }
                 ]
             };
             myChart.setOption(option);
-        }
+        },
+
+        getDashboardData(){
+            this.$http.get("admin/dashboard"). then(response => {
+                const res = response.data;
+                if (res.status_code === 1000){
+                    this.readNum = res.data.read_num
+                    this.thumbNum = res.data.thumb_num
+                    this.articleNum = res.data.article_num
+                    this.articleTitleList = res.data.article_title_list
+                    this.articleBrowseList = res.data.article_browse_list
+                    this.dateList = res.data.date_list
+                    this.dailyBrowseList = res.data.daily_browse_list
+                    this.dailyUserList = res.data.daily_user_list
+                    this.browseNum = res.data.browse_num
+                    this.categoryList = res.data.category_list
+                    this.tagList = res.data.tag_list
+
+                    this.dailyBrowse();
+                    this.dailyUser();
+                    this.browseCount();
+                    this.categoryDetail();
+                    this.tagDetail();
+                }
+            })
+        },
     },
 }
 </script>

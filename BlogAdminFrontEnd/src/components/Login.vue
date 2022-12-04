@@ -39,8 +39,8 @@
 
                 // 这是表单对象绑定的数据
                 loginForm: {
-                    username: "chendacheng",
-                    password: "cdc19951216"
+                    username: "",
+                    password: ""
                 },
 
                 // 表单验证对象

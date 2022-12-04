@@ -77,13 +77,16 @@ class AddArticleView(APIView):
 
     @staticmethod
     def create_desc(content):
+        try:
+            _html = etree.HTML(markdown.markdown(content))
+            _content_list = _html.xpath("//p/text()")
+            _content_list = [i.replace("\u200b", "").strip() for i in _content_list]
 
-        _html = etree.HTML(markdown.markdown(content))
-        _content_list = _html.xpath("//p/text()")
-        _content_list = [i.replace("\u200b", "").strip() for i in _content_list]
-
-        _content = "".join(_content_list)
-        desc = _content.strip()[:200]
+            _content = "".join(_content_list)
+            desc = _content.strip()[:200]
+        except Exception as e:
+            logger.error(f"【新增文章】-【自动生成简介】-【失败】- {str(e)} - {traceback.format_exc()}")
+            desc = ""
 
         return desc
 

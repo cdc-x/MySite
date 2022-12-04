@@ -16,30 +16,20 @@ class QueryArticleListView(APIView):
     @staticmethod
     def get(request):
         try:
-            search_content = request.GET.get("searchContent", "")
-            search_tag = request.GET.get("searchTag", "")
+            search_category = request.GET.get("category", "")
+            search_tag = request.GET.get("tag", "")
+            search_content = request.GET.get("content", "")
             page = request.GET.get("page", 1)
 
-            sql = f"""
-                SELECT DISTINCT 
-                    a.*,
-                    d.category as category_name
-                FROM
-                    article a 
-                    LEFT JOIN article_tag b ON b.article_id=a.aid
-                    LEFT JOIN tag c ON b.tag_id=c.tid
-                    LEFT JOIN category d ON a.category_id=d.cid
-            """
+            if search_category:
+                query = Article.objects.filter(category__category=search_category).order_by("-publish_time")
+            elif search_tag:
+                query = Article.objects.filter(article2tag__tag__tag=search_tag).order_by("-publish_time")
+            elif search_content:
+                query = Article.objects.filter(title__icontains=search_content).order_by("-publish_time")
+            else:
+                query = Article.objects.all().order_by("-publish_time")
 
-            if search_content:
-                sql += f" WHERE a.title like '%%{search_content}%%'"
-
-            if search_tag:
-                sql += f" WHERE c.tag='{search_tag}'"
-
-            sql += " ORDER BY a.publish_time desc, a.title desc"
-
-            query = Article.objects.raw(sql)
             paginator = Paginator(query, 8)
 
             try:
@@ -50,25 +40,27 @@ class QueryArticleListView(APIView):
 
             data_list = list()
             for obj in page_content:
+                tags_list = list()
+                tags_query = Article2Tag.objects.filter(article_id=obj.id)
+                main_tag = Article2Tag.objects.filter(article_id=obj.id, main=True).first().tag.tag
+                for tag in tags_query:
+                    tags_list.append(tag.tag.tag)
+
                 data_list.append({
-                    "id": obj.aid,
+                    "id": obj.id,
                     "title": obj.title,
                     "desc": obj.article_desc,
-                    "publish_time": obj.publish_time.strftime("%Y-%m-%d") if obj.publish_time else "",
+                    "publish_year": obj.publish_time.year,
+                    "publish_month": obj.publish_time.month,
+                    "publish_day": obj.publish_time.day,
                     "thumb": obj.thumb,
                     "browse": obj.browse,
-                    "category": obj.category_name,
+                    "category": obj.category.category,
+                    "tags": tags_list,
+                    "main_tag": main_tag
                 })
 
-            # 查询时间标记
-            date_mark = list()
-            date_query = Article.objects.all().values("publish_time").distinct()
-            for item in date_query:
-                if item["publish_time"]:
-                    date_mark.append(item["publish_time"].strftime("%Y/%m/%d"))
-
-            ret_data = {"status_code": 1000, "data": data_list, "total": len(query), "date_mark": date_mark,
-                        "page": page}
+            ret_data = {"status_code": 1000, "data": data_list, "total": len(query), "page": page}
         except Exception as e:
             logger.error(str(e))
             ret_data = {"status_code": 1001, "message": str(e)}
@@ -82,30 +74,7 @@ class QueryHotArticleListView(APIView):
     @staticmethod
     def get(request):
         try:
-            sql = f"""
-                SELECT
-                    a.*,
-                    b.category as category_name
-                FROM
-                    article a 
-                    LEFT JOIN category b ON a.category_id=b.cid
-                ORDER BY browse desc 
-            """
-
-            query = Article.objects.raw(sql)
-
-            data_list = list()
-            for obj in list(query)[0:8]:
-                data_list.append({
-                    "id": obj.aid,
-                    "title": obj.title,
-                    "desc": obj.article_desc,
-                    "publish_time": obj.publish_time.strftime("%Y-%m-%d") if obj.publish_time else "",
-                    "thumb": obj.thumb,
-                    "browse": obj.browse,
-                    "category": obj.category_name,
-                })
-
+            data_list = list(Article.objects.values("title", "id").order_by("browse")[0:10])
             ret_data = {"status_code": 1000, "data": data_list}
         except Exception as e:
             logger.error(str(e))
@@ -120,27 +89,10 @@ class QueryArticleTagsView(APIView):
     @staticmethod
     def get(request):
         try:
-            sql = f"""
-                SELECT
-                    a.*,
-                    c.tag as tag_name
-                FROM
-                    article a 
-                    LEFT JOIN article_tag b ON a.aid=b.article_id
-                    LEFT JOIN tag c ON c.tid=b.tag_id
-            """
 
-            query = Article.objects.raw(sql)
-            tag_query = Tag.objects.all()
+            tag_list = Tag.objects.values("id", "tag")
 
-            tag_count = dict()
-            for obj in tag_query:
-                tag_count[obj.tag] = 0
-
-            for obj in query:
-                tag_count[obj.tag_name] += 1
-
-            ret_data = {"status_code": 1000, "data": tag_count}
+            ret_data = {"status_code": 1000, "data": tag_list}
         except Exception as e:
             logger.error(str(e))
             ret_data = {"status_code": 1001, "message": str(e)}

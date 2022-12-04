@@ -15,75 +15,24 @@
 <script>
     export default {
         created(){
-
+            this.getArchiveData()
         },
         
         data(){
             return {
-                activities: [
-                    {
-                        time: "2020-12-31",
-                        articles: [
-                            {id: 4, title: "Python面向对象", category: "Python学习之路", tag: "Python"},
-                            {id: 3, title: "Python函数", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-30",
-                        articles: [
-                            {id: 2, title: "Python基础数据类型", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-29",
-                        articles: [
-                            {id: 1, title: "Python初识", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-28",
-                        articles: [
-                            {id: 4, title: "Python面向对象", category: "Python学习之路", tag: "Python"},
-                            {id: 3, title: "Python函数", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-27",
-                        articles: [
-                            {id: 2, title: "Python基础数据类型", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-26",
-                        articles: [
-                            {id: 1, title: "Python初识", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-25",
-                        articles: [
-                            {id: 4, title: "Python面向对象", category: "Python学习之路", tag: "Python"},
-                            {id: 3, title: "Python函数", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-24",
-                        articles: [
-                            {id: 2, title: "Python基础数据类型", category: "Python学习之路", tag: "Python"},
-                        ]
-                    },
-                    {
-                        time: "2020-12-23",
-                        articles: [
-                            {id: 1, title: "Python初识", category: "Python学习之路", tag: "Python"},
-                        ]
-                    }
-                ]
+                activities: []
             }
         },
 
         methods: {
-
+            getArchiveData(){
+                 this.$http.get("archive").then(response => {
+                    const res = response.data;
+                    if (res.status_code === 1000){
+                        this.activities = res.data
+                    }
+                })
+            }
         },
     }
 </script>

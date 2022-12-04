@@ -18,7 +18,7 @@
                 <div class="desc-require">
                     <span style="margin-right: 5px"><i class="el-icon-error" style="color: red;"></i> 经常宕机</span>
                     <span style="margin-right: 5px"><i class="el-icon-error" style="color: red;"></i> 不合法规</span>
-                    <span style="margin-right: 5px"><i class="el-icon-error" style="color: red;"></i> 插边球站</span>
+                    <span style="margin-right: 5px"><i class="el-icon-error" style="color: red;"></i> 擦边球站</span>
                     <span style="margin-right: 5px"><i class="el-icon-error" style="color: red;"></i> 红标报毒</span>
                     <span style="margin-right: 5px"><i class="el-icon-success" style="color: #0bbd87;"></i> 原创优先</span>
                     <span style="margin-right: 5px"><i class="el-icon-success" style="color: #0bbd87;"></i> 技术优先</span>
@@ -37,72 +37,27 @@
             <li>
                 <div class="pd-lr-10">
                     <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
+                        <img src="/static/img/links/cdc_bky.png">
                         <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
+                        <p>cdcx的博客园</p>
                     </a>
                 </div>
             </li>
              <li>
                 <div class="pd-lr-10">
-                    <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
-                        <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
+                    <a href="https://blog.csdn.net/cdc_tr" target="_blank">
+                        <img src="/static/img/links/cdc_bky.png">
+                        <h3>cdc-x</h3>
+                        <p>cdc-x的CSDN</p>
                     </a>
                 </div>
             </li>  
              <li>
                 <div class="pd-lr-10">
-                    <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
-                        <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
-                    </a>
-                </div>
-            </li>  
-             <li>
-                <div class="pd-lr-10">
-                    <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
-                        <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
-                    </a>
-                </div>
-            </li>  
-             <li>
-                <div class="pd-lr-10">
-                    <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
-                        <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
-                    </a>
-                </div>
-            </li>  
-             <li>
-                <div class="pd-lr-10">
-                    <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
-                        <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
-                    </a>
-                </div>
-            </li>  
-             <li>
-                <div class="pd-lr-10">
-                    <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
-                        <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
-                    </a>
-                </div>
-            </li>  
-             <li>
-                <div class="pd-lr-10">
-                    <a href="https://www.cnblogs.com/cdc1216/" target="_blank">
-                        <img src="/static/img/links/1.png">
-                        <h3>cdcx</h3>
-                        <p>cdc的博客园</p>
+                    <a href="https://www.cnblogs.com/tongh/" target="_blank">
+                        <img src="/static/img/links/huitong_bky.png">
+                        <h3>Hui_Tong</h3>
+                        <p>Hui_Tong的博客园</p>
                     </a>
                 </div>
             </li>  

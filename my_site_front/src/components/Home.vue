@@ -89,8 +89,6 @@
 
         created(){
             this.activeIndex = this.$store.state.activeIndex?this.$store.state.activeIndex:'/blog'
-            this.articleCategory = this.$store.state.articleCategory
-            
         },
 
         components: {
@@ -114,8 +112,6 @@
                 contactImg: "",
                 // 展示的二维码
                 contactTite: "",
-                // 搜索文章的分类
-                articleCategory: "",
 
             }
         },
@@ -157,7 +153,7 @@
                 this.isShowContact = false
                 this.contactTite = ''
                 this.contactImg = ''
-            }
+            },
         },
     }
 </script>

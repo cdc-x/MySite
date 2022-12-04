@@ -26,7 +26,7 @@
                                 </div>
                                 <ul>
                                     <li style="color: white; font-size: 24px; font-weight: blod">访问量</li>
-                                    <li style="color: white; font-size: 30px; font-weight: blod">50, 000</li>
+                                    <li style="color: white; font-size: 30px; font-weight: blod">{{ browseNum }}</li>
                                 </ul>
                             </div>
                         </el-card>
@@ -39,7 +39,7 @@
                                 </div>
                                 <ul>
                                     <li style="color: white; font-size: 24px; font-weight: blod">文章数</li>
-                                    <li style="color: white; font-size: 30px; font-weight: blod">50, 000</li>
+                                    <li style="color: white; font-size: 30px; font-weight: blod">{{ articleNum }}</li>
                                 </ul>
                             </div>
                         </el-card>
@@ -52,7 +52,7 @@
                                 </div>
                                 <ul>
                                     <li style="color: white; font-size: 24px; font-weight: blod">阅读量</li>
-                                    <li style="color: white; font-size: 30px; font-weight: blod">500, 000</li>
+                                    <li style="color: white; font-size: 30px; font-weight: blod">{{ readNum }}</li>
                                 </ul>
                             </div>
                         </el-card>
@@ -65,7 +65,7 @@
                                 </div>
                                 <ul>
                                     <li style="color: white; font-size: 24px; font-weight: blod">点赞数</li>
-                                    <li style="color: white; font-size: 30px; font-weight: blod">50, 000</li>
+                                    <li style="color: white; font-size: 30px; font-weight: blod">{{ thumbNum }}</li>
                                 </ul>
                             </div>
                         </el-card>
@@ -136,9 +136,20 @@
 
 <script>
     export default {
-         mounted(){
-            this.publishDetail();
-            this.categoryDetail();
+        created(){
+            this.getDashboardDate()
+        },
+
+        data(){
+            return {
+                browseNum: 0,
+                readNum: 0,
+                thumbNum: 0,
+                articleNum: 0,
+                publishDateList: [],
+                publishNumList: [],
+                articleCategory: [],
+            }
         },
 
         methods: {
@@ -165,16 +176,20 @@
 
                     xAxis: {
                         type: 'category',
-                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                        data: this.publishDateList,
+                        axisLabel: {
+                            interval: 0,
+                            rotate: -45,
+                        }
                     },
                     
                     yAxis: {
                         type: 'value'
                     },
                     series: [
-                        {
-                            data: [150, 230, 224, 218, 135, 147, 260],
-                            type: 'line'
+                        {   
+                            type: 'line',
+                            data: this.publishNumList,
                         }
                     ]
                 };
@@ -202,27 +217,40 @@
 
                     series: [
                         {
-                            name: 'Access From',
+                            name: '博客分类详情',
                             type: 'pie',
-                            radius: '50%',
-                            data: [
-                                { value: 1048, name: 'Search Engine' },
-                                { value: 735, name: 'Direct' },
-                                { value: 580, name: 'Email' },
-                                { value: 484, name: 'Union Ads' },
-                                { value: 300, name: 'Video Ads' }
-                            ],
+                            radius: '70%',
+                            data: this.articleCategory,
                             emphasis: {
                                 itemStyle: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                                 }
                             }
                         }
                     ]
                 };
                 myChart.setOption(option);
+            },
+
+            getDashboardDate(){
+
+                this.$http.get("about_site").then(response => {
+                    const res = response.data;
+                    if (res.status_code === 1000){
+                        this.readNum = res.data.read_num
+                        this.thumbNum = res.data.thumb_num
+                        this.articleNum = res.data.article_num
+                        this.browseNum = res.data.browse_num
+                        this.publishDateList = res.data.publish_date_list
+                        this.publishNumList = res.data.publish_num_list
+                        this.articleCategory = res.data.category_list
+
+                        this.publishDetail();
+                        this.categoryDetail();
+                    }
+                })
             },
         }
     }

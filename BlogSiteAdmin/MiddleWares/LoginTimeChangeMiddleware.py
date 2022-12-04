@@ -9,7 +9,7 @@ class TimeLinesChangeMiddleware(MiddlewareMixin):
     def process_response(request, response):
         visit_path = request.path
 
-        if visit_path.__contains__("admin"):
+        if visit_path.__contains__("admin") and not visit_path.__contains__("user"):
             user_id = request.user
             UserInfo.objects.filter(id=user_id).update(
                 last_login_time=datetime.datetime.now().replace(microsecond=0)
