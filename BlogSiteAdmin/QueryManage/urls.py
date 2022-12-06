@@ -14,13 +14,14 @@ urlpatterns = [
     url(r"^article/hot$", QueryHotArticleListView.as_view()),
     # 查询Tag分类
     url(r"^article/tags$", QueryArticleTagsView.as_view()),
-
-    # url(r"^article/all$", QueryArticleListView.as_view()),
-    # url(r"^article/hot$", QueryHotArticleListView.as_view()),
-    # url(r"^article/tags$", QueryArticleTagsView.as_view()),
-    # url(r"^article/content$", QueryArticleContentView.as_view()),
-    # url(r"^article/count/thumb$", QueryArticleThumbView.as_view()),
-    # url(r"^article/count/browse$", QueryArticleBrowseView.as_view()),
-    # url(r"^article/thumb$", ArticleThumbView.as_view()),
-    # url(r"^article/check/thumb$", CheckArticleThumbView.as_view()),
+    # 查询文章内容
+    url(r"^article/content$", QueryArticleContentView.as_view()),
+    # 获取文章点赞数
+    url(r"^article/count/thumb$", QueryArticleThumbView.as_view()),
+    # 获取文章阅读量
+    url(r"^article/count/browse$", QueryArticleBrowseView.as_view()),
+    # 检查当前用户是否对文章点赞
+    url(r"^article/check/thumb$", CheckArticleThumbView.as_view()),
+    # 文章点赞
+    url(r"^article/thumb$", ArticleThumbView.as_view()),
 ]

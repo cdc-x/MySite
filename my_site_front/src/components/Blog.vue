@@ -313,6 +313,7 @@
             // 获取文章详情
             getArticleContent(aid){
                 this.showFlag = "detail"
+                this.$store.commit('changeArticleId', aid)
             },
         },
         

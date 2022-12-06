@@ -46,7 +46,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'MiddleWares.BrowseMiddleware.SiteBrowseMiddleware',
-    'MiddleWares.BrowseMiddleware.ArticleBrowseMiddleware',
     'MiddleWares.LoginTimeChangeMiddleware.TimeLinesChangeMiddleware',
 ]
 

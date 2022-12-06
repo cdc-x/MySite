@@ -1,6 +1,7 @@
 import datetime
 import logging
 import uuid
+import traceback
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core.paginator import EmptyPage, Paginator
@@ -61,8 +62,9 @@ class QueryArticleListView(APIView):
                 })
 
             ret_data = {"status_code": 1000, "data": data_list, "total": len(query), "page": page}
+            logger.info(f"【查询文章列表】-【成功】- 文章数：{len(query)}")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【查询文章列表】-【失败】- {str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "message": str(e)}
 
         return Response(ret_data)
@@ -76,8 +78,9 @@ class QueryHotArticleListView(APIView):
         try:
             data_list = list(Article.objects.values("title", "id").order_by("browse")[0:10])
             ret_data = {"status_code": 1000, "data": data_list}
+            logger.info(f"【查询热门文章】-【成功】- 文章数：{len(data_list)}")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【查询热门文章】-【失败】- {str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "message": str(e)}
 
         return Response(ret_data)
@@ -89,12 +92,11 @@ class QueryArticleTagsView(APIView):
     @staticmethod
     def get(request):
         try:
-
             tag_list = Tag.objects.values("id", "tag")
-
             ret_data = {"status_code": 1000, "data": tag_list}
+            logger.info(f"【查询文章标签】-【成功】- 文章数：{len(tag_list)}")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【查询文章标签】-【失败】- {str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "message": str(e)}
 
         return Response(ret_data)
@@ -107,7 +109,7 @@ class QueryArticleContentView(APIView):
     def get(request):
         try:
             aid = request.GET.get("p", "")
-            obj = Article.objects.filter(aid=aid).first()
+            obj = Article.objects.filter(id=aid).first()
             content = ""
             category = ""
             pub_time = ""
@@ -119,8 +121,9 @@ class QueryArticleContentView(APIView):
                 obj.save()
 
             ret_data = {"status_code": 1000, "data": content, "category": category, "pub_time": pub_time}
+            logger.info(f"【查询文章内容】-【成功】")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【查询文章内容】-【失败】-{str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "data": "", "category": "", "pub_time": ""}
 
         return Response(ret_data)
@@ -133,13 +136,14 @@ class QueryArticleThumbView(APIView):
     def get(request):
         try:
             aid = request.GET.get("p", "")
-            obj = Article.objects.filter(aid=aid).first()
+            obj = Article.objects.filter(id=aid).first()
             thumb = 0
             if obj:
                 thumb = obj.thumb
             ret_data = {"status_code": 1000, "data": thumb}
+            logger.info(f"【查询文章点赞数】-【成功】")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【查询文章点赞数】-【失败】-{str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "data": 0}
 
         return Response(ret_data)
@@ -152,13 +156,14 @@ class QueryArticleBrowseView(APIView):
     def get(request):
         try:
             aid = request.GET.get("p", "")
-            obj = Article.objects.filter(aid=aid).first()
+            obj = Article.objects.filter(id=aid).first()
             browse = 0
             if obj:
                 browse = obj.browse
             ret_data = {"status_code": 1000, "data": browse}
+            logger.info(f"【查询文章浏览数】-【成功】")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【查询文章浏览数】-【失败】-{str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "data": 0}
 
         return Response(ret_data)
@@ -178,21 +183,21 @@ class ArticleThumbView(APIView):
             if not query:
                 # 记录点赞信息
                 ThumbRecord.objects.create(
-                    tid=str(uuid.uuid4()),
                     host=host,
                     article_id=aid,
                     thumb_time=datetime.datetime.now()
                 )
 
                 # 文章点赞数加1
-                obj = Article.objects.filter(aid=aid).first()
+                obj = Article.objects.filter(id=aid).first()
                 if obj:
                     obj.thumb += 1
                     obj.save()
 
             ret_data = {"status_code": 1000, "message": "success"}
+            logger.info(f"【文章点赞】-【成功】")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【文章点赞】-【失败】-{str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "message": str(e)}
 
         return Response(ret_data)
@@ -214,8 +219,9 @@ class CheckArticleThumbView(APIView):
             else:
                 flag = False
             ret_data = {"status_code": 1000, "flag": flag}
+            logger.info(f"【查询文章点赞状态】-【成功】")
         except Exception as e:
-            logger.error(str(e))
+            logger.error(f"【查询文章点赞状态】-【失败】-{str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "flag": False}
 
         return Response(ret_data)

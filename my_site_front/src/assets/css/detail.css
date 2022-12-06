@@ -1,0 +1,168 @@
+/* 设置滚动条 */
+/deep/ .el-scrollbar__wrap {
+    overflow-x: hidden;
+}
+
+/deep/ .el-scrollbar__bar.is-horizontal {
+    width: 0;
+    height: 0;
+}
+
+.back-top {
+    position: fixed;
+    bottom: 50px;
+    right: 100px;
+}
+
+.back-up {
+    position: fixed;
+    bottom: 100px;
+    right: 100px;
+}
+
+.content-footer {
+    height: 100px;
+    background-color: #fff;
+    text-align: center;
+    border-top: 2px #eee dashed;
+    padding: 2rem 0;
+}
+
+.thumb-btn {
+    height: 35px;
+    background-color: #fff;
+    border: 2px rgba(0, 0, 0, .38) solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.thumb-btn:hover {
+    border: 2px #ff5722 solid;
+    color: #ff5722;
+    
+}
+
+.thumb-btn span {
+    margin-right: 5px;
+}
+
+.content-footer div {
+    margin: 15px 0;
+    font-size: 14px;
+    color: rgba(0, 0, 0, .58);
+    font-weight: bold;
+}
+
+.thumbed {
+    background-color: #ff5722;
+    border: 2px #ff5722 solid;
+    color: white;
+}
+
+.thumbed:hover {
+    color: white;
+}
+
+.article-title {
+    display: flex;
+    flex-direction: column;
+    height: 72px;
+}
+
+.article-title > div {
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.article-title > div:hover {
+    color: #0088F5;
+}
+
+/deep/ pre {
+    border-radius: 3px;
+    padding: 5px !important;
+    
+}
+
+/deep/ .markdown-body .hljs {
+    padding: 5px;
+}
+
+.level2 {
+    padding-left: 36px !important;
+}
+
+ .level3 {
+    padding-left: 48px !important;
+}
+
+ .level4 {
+    padding-left: 60px !important;
+}
+
+.border-style {
+    width: 100%;
+    border: 1px dashed #dedede;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.article-title {
+    display: flex;
+    flex-direction: column;
+    height: 72px;
+}
+
+.article-title > div {
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.article-title > div:hover {
+    color: #0088F5;
+}
+
+.article-menu-item {
+    cursor: pointer;
+    padding-left: 12px;
+    font-size: 14px;
+    color: gray;
+    margin-top: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.article-menu-item:hover {
+    color: #0088F5
+}
+
+.article-menu {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.article-menu::-webkit-scrollbar {
+    display:none
+}
+
+.article-footer {
+    height: 36px;
+    line-height: 36px;
+    cursor: default;
+}
+
+.article-footer:hover > * {
+    color: #0088F5;
+}
+
+.support {
+    display: flex;
+    justify-content: center;
+}
+
+.fixed-item {
+    position: fixed; 
+    width: 21.5%; 
+    top: 70px;
+}

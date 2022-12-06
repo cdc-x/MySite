@@ -14,6 +14,7 @@ import {
   Timeline,
   TimelineItem,
   Tag,
+  Scrollbar,
 } from 'element-ui'
 import axios from 'axios'
 import mavonEditor from 'mavon-editor'
@@ -33,6 +34,7 @@ Vue.use(Card)
 Vue.use(Timeline)
 Vue.use(TimelineItem)
 Vue.use(Tag)
+Vue.use(Scrollbar)
 Vue.use(mavonEditor)
 
 Vue.prototype.$wow = wow

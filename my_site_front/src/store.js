@@ -7,6 +7,7 @@ export default new Vuex.Store({
     state: {
         activeIndex: "",
         articleCategory: "",
+        articleId: "",
     },
 
     mutations: {
@@ -16,6 +17,10 @@ export default new Vuex.Store({
 
         changeArticleCategory(state, cate){
             state.articleCategory = cate;
+        },
+
+        changeArticleId(state, aid){
+            state.articleId = aid
         },
     },
     
