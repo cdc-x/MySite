@@ -8,6 +8,7 @@ export default new Vuex.Store({
         activeIndex: "",
         articleCategory: "",
         articleId: "",
+        showFlag: "",
     },
 
     mutations: {
@@ -22,6 +23,10 @@ export default new Vuex.Store({
         changeArticleId(state, aid){
             state.articleId = aid
         },
+
+        changeShowFlag(state, val){
+            state.showFlag = val
+        }
     },
     
     actions: {

@@ -1,6 +1,6 @@
 <template>
     <div style="height:100%;">
-        <el-row :gutter='20' style="margin-top: 30px;">
+        <el-row :gutter='20' style="margin-top: 20px;">
             <el-col :span='18'>
                 <!-- 文章列表及内容显示区域 -->
                 <mavon-editor 
@@ -15,9 +15,9 @@
                 </mavon-editor>
 
                 <div class="content-footer">
-                    <button @click="thumbArticle()" class="thumb-btn" :class="{'thumbed': articleThumbed}">
+                    <button @click="thumbArticle()" class="thumb-btn" :class="{'thumbed': articleThumbed}" :disabled="articleThumbed">
                         <span class="iconfont icon-dianzan"></span>
-                        <span>{{articleThumbed?"已赞":"真棒！"}} {{articleThumbNum}}</span>
+                        <span>{{articleThumbed?"已赞":"已赞"}} {{articleThumbNum}}</span>
                     </button>
                     <div>
                         本文于 {{articlePubTime}} 发布在 {{articleCate}} 专题
@@ -68,14 +68,14 @@
                             打赏一下
                         </div>
                         <div class="support">
-                            <div style="height: 60%; width: 60%">
-                                <img src="/static/img/contact/wechat.png" style="height: 100%; width: 100%">
+                            <div style="height: 65%; width: 65%">
+                                <img src="/static/img/contact/support.png" style="height: 100%; width: 100%">
                             </div>
                         </div>
                     </el-card>
                 </div>
 
-                <div class="fixed-item" v-if="topLeft <= -150">
+                <div class="fixed-item" v-if="topLeft <= -250">
                     <el-card class="box-card" style="margin-bottom: 10px">
                         <div class="article-title border-style" @click="topMao(articleInfo.href)">
                             <div style="font-size: 14px;font-weight: bold;padding-left: 12px">{{ articleInfo.title }}</div>
@@ -109,8 +109,8 @@
                                 打赏一下
                             </div>
                             <div class="support">
-                                <div style="height: 60%; width: 60%">
-                                    <img src="/static/img/contact/wechat.png" style="height: 100%; width: 100%">
+                                <div style="height: 65%; width: 65%">
+                                    <img src="/static/img/contact/support.png" style="height: 100%; width: 100%">
                                 </div>
                             </div>
                         </el-card>
@@ -171,14 +171,8 @@
                 // 显示内容距离窗口顶部的距离
                 topLeft: 0,
 
-                // 当前是否显示文章内容
-                isArticleContent: false,
-
                 // 文章标题及字数统计
-                articleInfo: {
-                    title: "",
-                    count: 0
-                }
+                articleInfo: {}
             }
         },
 

@@ -1,12 +1,12 @@
 import datetime
 import logging
-import uuid
 import traceback
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core.paginator import EmptyPage, Paginator
 from ArticleManage.models import *
 from TagManage.models import Tag
+from CategoryManage.models import Category
 
 logger = logging.getLogger("log")
 
@@ -97,6 +97,22 @@ class QueryArticleTagsView(APIView):
             logger.info(f"【查询文章标签】-【成功】- 文章数：{len(tag_list)}")
         except Exception as e:
             logger.error(f"【查询文章标签】-【失败】- {str(e)} - {traceback.format_exc()}")
+            ret_data = {"status_code": 1001, "message": str(e)}
+
+        return Response(ret_data)
+
+
+class QueryArticleCategoryView(APIView):
+    authentication_classes = []
+
+    @staticmethod
+    def get(request):
+        try:
+            category_list = Category.objects.values("id", "category")
+            ret_data = {"status_code": 1000, "data": category_list}
+            logger.info(f"【查询文章分类】-【成功】- 文章数：{len(category_list)}")
+        except Exception as e:
+            logger.error(f"【查询文章分类】-【失败】- {str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "message": str(e)}
 
         return Response(ret_data)
@@ -223,5 +239,40 @@ class CheckArticleThumbView(APIView):
         except Exception as e:
             logger.error(f"【查询文章点赞状态】-【失败】-{str(e)} - {traceback.format_exc()}")
             ret_data = {"status_code": 1001, "flag": False}
+
+        return Response(ret_data)
+
+
+class SearchArticleByCategoryView(APIView):
+    authentication_classes = []
+
+    @staticmethod
+    def get(request):
+        try:
+            cid = request.GET.get("cid", "")
+            article_list = Article.objects.filter(category_id=cid).values("id", "title").order_by("-publish_time")
+            logger.info(f"【根据分类查询文章列表】-【成功】- 文章数：{len(article_list)}")
+            ret_data = {"status_code": 1000, "data": article_list}
+        except Exception as e:
+            logger.error(f"【根据分类查询文章列表】-【失败】-{str(e)} - {traceback.format_exc()}")
+            ret_data = {"status_code": 1001, "message": str(e)}
+
+        return Response(ret_data)
+
+
+class SearchArticleByTagView(APIView):
+    authentication_classes = []
+
+    @staticmethod
+    def get(request):
+        try:
+            tid = request.GET.get("tid", "")
+            aid_list = list(set(Article2Tag.objects.filter(tag_id=tid).values_list("article_id", flat=True)))
+            article_list = Article.objects.filter(id__in=aid_list).values("id", "title").order_by("-publish_time")
+            logger.info(f"【根据标签查询文章列表】-【成功】- 文章数：{len(article_list)}")
+            ret_data = {"status_code": 1000, "data": article_list}
+        except Exception as e:
+            logger.error(f"【根据标签查询文章列表】-【失败】-{str(e)} - {traceback.format_exc()}")
+            ret_data = {"status_code": 1001, "message": str(e)}
 
         return Response(ret_data)

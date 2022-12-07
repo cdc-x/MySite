@@ -131,6 +131,12 @@
     export default {
 
         created(){
+            if(this.$store.state.showFlag){
+                this.showFlag = this.$store.state.showFlag
+            }else {
+                this.showFlag = "list"
+            }
+
             this.searchCategory = this.$store.state.articleCategory
             this.initArticleList()
             this.getTagMap()

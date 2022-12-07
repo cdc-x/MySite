@@ -14,6 +14,8 @@ urlpatterns = [
     url(r"^article/hot$", QueryHotArticleListView.as_view()),
     # 查询Tag分类
     url(r"^article/tags$", QueryArticleTagsView.as_view()),
+    # 查询分类
+    url(r"^article/category$", QueryArticleCategoryView.as_view()),
     # 查询文章内容
     url(r"^article/content$", QueryArticleContentView.as_view()),
     # 获取文章点赞数
@@ -24,4 +26,9 @@ urlpatterns = [
     url(r"^article/check/thumb$", CheckArticleThumbView.as_view()),
     # 文章点赞
     url(r"^article/thumb$", ArticleThumbView.as_view()),
+    # 根据文章分类查询文章
+    url(r"^article/search_by_category$", SearchArticleByCategoryView.as_view()),
+    # 根据文章标签查询文章
+    url(r"^article/search_by_tag$", SearchArticleByTagView.as_view()),
+
 ]

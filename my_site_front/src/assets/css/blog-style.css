@@ -1075,10 +1075,6 @@ button, input, textarea {
     cursor: not-allowed;
 }
 
-.article-load-outer {
-    cursor: not-allowed;
-}
-
 .dis-click {
     pointer-events: none;
 }

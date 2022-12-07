@@ -125,7 +125,8 @@
                 if (item === "/index"){
                     this.$router.push('/')
                 }
-
+                this.$store.commit('changeShowFlag', "list")
+                this.$store.commit('changeArticleCategory', "")
                 this.activeIndex = item
             },
 

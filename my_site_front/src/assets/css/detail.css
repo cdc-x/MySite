@@ -131,6 +131,7 @@
     margin-top: 6px;
     text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: hidden;
 }
 
 .article-menu-item:hover {
@@ -163,6 +164,12 @@
 
 .fixed-item {
     position: fixed; 
-    width: 21.5%; 
+    width: 15%; 
     top: 70px;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: bounceInDown;
+    animation-name: bounceInDown
 }
