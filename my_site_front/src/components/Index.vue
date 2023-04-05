@@ -61,7 +61,7 @@
                                         <div>Python专栏</div>
                                         <div class="date">2022年10月11日</div>
                                         <p>本专栏主要分享python相关知识，包括python基础，面向对象、并发等进阶内容，相关框架，由浅入深整理Python学习中的每一个阶段和知识点</p>
-                                        <a class="btn" @click="enterHomeByCategory('/blog', 'Python学习')">阅读更多</a>
+                                        <a class="btn" @click="enterHomeByCategory('/blog', 'Python')">阅读更多</a>
                                     </div>
                                 </div>
                             </el-col>
@@ -74,7 +74,7 @@
                                         <div>web前端专栏</div>
                                         <div class="date">2022年10月11日</div>
                                         <p>本专栏主要介绍了前端开发相关的内容，包含HTML、CSS、JavaScript入门知识，还介绍了前端框架Vue的基本使用方法</p>
-                                        <a class="btn" @click="enterHomeByCategory('/blog', 'Web开发学习')">阅读更多</a>
+                                        <a class="btn" @click="enterHomeByCategory('/blog', 'Web')">阅读更多</a>
                                     </div>
                                 </div>
                             </el-col>
@@ -87,7 +87,7 @@
                                         <div>golang专栏</div>
                                         <div class="date">2022年10月11日</div>
                                         <p>本专栏主要记录go语言自学过程中整理的相关知识点，包含golang基础知识，gin框架等内容</p>
-                                        <a class="btn" @click="enterHomeByCategory('/blog', 'Golang学习')">阅读更多</a>
+                                        <a class="btn" @click="enterHomeByCategory('/blog', 'Golang')">阅读更多</a>
                                     </div>
                                 </div>
                             </el-col>

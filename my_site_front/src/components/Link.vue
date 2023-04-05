@@ -43,16 +43,34 @@
                     </a>
                 </div>
             </li>
-             <li>
+            <li>
                 <div class="pd-lr-10">
                     <a href="https://blog.csdn.net/cdc_tr" target="_blank">
-                        <img src="/static/img/links/cdc_bky.png">
+                        <img src="/static/img/links/cdc_csdn.png">
                         <h3>cdc-x</h3>
                         <p>cdc-x的CSDN</p>
                     </a>
                 </div>
             </li>  
-             <li>
+            <li>
+                <div class="pd-lr-10">
+                    <a href="https://www.jianshu.com/u/cbf200981ecd" target="_blank">
+                        <img src="/static/img/links/cdc_js.png">
+                        <h3>cdc_x</h3>
+                        <p>cdc_x的简书</p>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="pd-lr-10">
+                    <a href="https://www.zhihu.com/people/cdc1216/" target="_blank">
+                        <img src="/static/img/links/cdc_zh.png">
+                        <h3>cdc1216</h3>
+                        <p>cdc1216的知乎</p>
+                    </a>
+                </div>
+            </li>  
+            <li>
                 <div class="pd-lr-10">
                     <a href="https://www.cnblogs.com/tongh/" target="_blank">
                         <img src="/static/img/links/huitong_bky.png">

@@ -30,8 +30,8 @@ class QueryDashboardDataView(APIView):
             # 文章总数
             article_num = article_query.count()
             for _article in article_list:
-                read_num += _article["thumb"]
-                thumb_num += _article["browse"]
+                read_num += _article["browse"]
+                thumb_num += _article["thumb"]
 
             # 统计文章发布数据
             publish_info = dict()

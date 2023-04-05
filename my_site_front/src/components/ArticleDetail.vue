@@ -179,17 +179,17 @@
         methods: {
             // 查询文章内容
             getArticleContent(){
-                return this.$http.get("/article/content?p=" + this.articleId)
+                return this.$http.get("q/article/content?p=" + this.articleId)
             },
 
             // 查询文章点赞数
             getArticleThumbNum(){
-                return this.$http.get("/article/count/thumb?p=" + this.articleId)
+                return this.$http.get("q/article/count/thumb?p=" + this.articleId)
             },
 
             // 查询文章点赞数
             getArticleThumbNum2(){
-                this.$http.get("/article/count/thumb?p=" + this.articleId).then(response => {
+                this.$http.get("q/article/count/thumb?p=" + this.articleId).then(response => {
                     const res = response.data
                     this.articleThumbNum = res.data
                 })
@@ -197,12 +197,12 @@
 
             // 查询文章浏览数
             getArticleBrowseNum(){
-                return this.$http.get("/article/count/browse?p=" + this.articleId)
+                return this.$http.get("q/article/count/browse?p=" + this.articleId)
             },
 
             // 查询当前用户是否已点赞当前文章
             getArticleThumbed(){
-                return this.$http.get("/article/check/thumb?p=" + this.articleId)
+                return this.$http.get("q/article/check/thumb?p=" + this.articleId)
             },
 
             // 查询文章详细信息
@@ -242,7 +242,7 @@
             // 文章点赞
             thumbArticle(){
                 if (this.articleThumbed === false){
-                    this.$http.get("/article/thumb?p=" + this.articleId).then(response => {
+                    this.$http.get("q/article/thumb?p=" + this.articleId).then(response => {
                         this.getArticleThumbNum2(this.articleId)
                         this.articleThumbed = true
                     })

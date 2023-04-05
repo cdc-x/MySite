@@ -26,7 +26,7 @@
 
         methods: {
             getArchiveData(){
-                 this.$http.get("archive").then(response => {
+                 this.$http.get("q/archive").then(response => {
                     const res = response.data;
                     if (res.status_code === 1000){
                         this.activities = res.data

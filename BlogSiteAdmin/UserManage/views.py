@@ -94,8 +94,6 @@ class AddUserView(APIView):
                     "last_login_time": datetime.datetime.now().replace(microsecond=0)
                 }
 
-                print(user_data)
-
                 serializer = UserInfoSerializer(data=user_data)
 
                 if serializer.is_valid():

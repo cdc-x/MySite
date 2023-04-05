@@ -23,13 +23,14 @@ class QueryArticleListView(APIView):
             page = request.GET.get("page", 1)
 
             if search_category:
-                query = Article.objects.filter(category__category=search_category).order_by("-publish_time")
+                query = Article.objects.filter(category__category=search_category).order_by("-publish_time", "-title")
             elif search_tag:
-                query = Article.objects.filter(article2tag__tag__tag=search_tag).order_by("-publish_time")
+                query = Article.objects.filter(
+                    article2tag__tag__tag=search_tag, article2tag__main=True).order_by("-publish_time", "-title")
             elif search_content:
-                query = Article.objects.filter(title__icontains=search_content).order_by("-publish_time")
+                query = Article.objects.filter(title__icontains=search_content).order_by("-publish_time", "-title")
             else:
-                query = Article.objects.all().order_by("-publish_time")
+                query = Article.objects.all().order_by("-publish_time", "-title")
 
             paginator = Paginator(query, 8)
 
@@ -250,7 +251,8 @@ class SearchArticleByCategoryView(APIView):
     def get(request):
         try:
             cid = request.GET.get("cid", "")
-            article_list = Article.objects.filter(category_id=cid).values("id", "title").order_by("-publish_time")
+            article_list = Article.objects.filter(category_id=cid).values("id", "title").order_by(
+                "-publish_time", "-title")
             logger.info(f"【根据分类查询文章列表】-【成功】- 文章数：{len(article_list)}")
             ret_data = {"status_code": 1000, "data": article_list}
         except Exception as e:
@@ -268,7 +270,8 @@ class SearchArticleByTagView(APIView):
         try:
             tid = request.GET.get("tid", "")
             aid_list = list(set(Article2Tag.objects.filter(tag_id=tid).values_list("article_id", flat=True)))
-            article_list = Article.objects.filter(id__in=aid_list).values("id", "title").order_by("-publish_time")
+            article_list = Article.objects.filter(id__in=aid_list).values("id", "title").order_by(
+                "-publish_time", "-title")
             logger.info(f"【根据标签查询文章列表】-【成功】- 文章数：{len(article_list)}")
             ret_data = {"status_code": 1000, "data": article_list}
         except Exception as e:

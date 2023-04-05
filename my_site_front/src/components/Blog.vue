@@ -202,7 +202,7 @@
                 this.page = 1
                 this.searchTag = ""
                 this.searchContent = ""
-                let url = "article/all?page=" + this.page
+                let url = "q/article/all?page=" + this.page
                 if (this.searchCategory){
                     url = url + "&category=" + this.searchCategory
                 }
@@ -226,7 +226,7 @@
                 this.page = 1
                 this.searchCategory = ""
                 this.searchTag = ""
-                let url = "article/all?page=" + this.page + "&content=" + this.searchContent
+                let url = "q/article/all?page=" + this.page + "&content=" + this.searchContent
 
                 this.$http.get(url).then(response => {
                     const res = response.data
@@ -248,7 +248,7 @@
                 this.searchCategory = ""
                 this.searchContent = ""
                 this.searchTag = tag
-                let url = "article/all?page=" + this.page + "&tag=" + this.searchTag
+                let url = "q/article/all?page=" + this.page + "&tag=" + this.searchTag
 
                 this.$http.get(url).then(response => {
                     const res = response.data
@@ -267,7 +267,7 @@
             // 分页
             handleCurrentChange(newPage){
                 this.page ++;
-                let url = "article/all?page=" + this.page
+                let url = "q/article/all?page=" + this.page
                 if (this.searchContent.length !== 0) {
                     url =  url + "&content=" + this.searchContent
                 }else if (this.searchTag.length !== 0) {
@@ -297,7 +297,7 @@
 
             // 查询热门文章
             getHotArticleList(){
-                this.$http.get("article/hot").then(response => {
+                this.$http.get("q/article/hot").then(response => {
                     const res = response.data
 
                     if (res.status_code === 1000){
@@ -306,9 +306,9 @@
                 })
             },
 
-            // 差选所有的Tag映射数据
+            // 查询所有的Tag映射数据
             getTagMap(){
-                this.$http.get("article/tags").then(response => {
+                this.$http.get("q/article/tags").then(response => {
                     const res = response.data
                     if (res.status_code === 1000){
                         this.articleTagMap = res.data

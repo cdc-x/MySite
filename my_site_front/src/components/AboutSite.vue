@@ -236,7 +236,7 @@
 
             getDashboardDate(){
 
-                this.$http.get("about_site").then(response => {
+                this.$http.get("q/about_site").then(response => {
                     const res = response.data;
                     if (res.status_code === 1000){
                         this.readNum = res.data.read_num

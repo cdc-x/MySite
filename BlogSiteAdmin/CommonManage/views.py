@@ -1,5 +1,6 @@
 import logging
 import traceback
+import datetime
 from django.db.models import Count
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -30,17 +31,22 @@ class DashboardView(APIView):
             article_num = article_query.count()
 
             for _article in article_list:
-                read_num += _article["thumb"]
-                thumb_num += _article["browse"]
+                read_num += _article["browse"]
+                thumb_num += _article["thumb"]
+
+            for _article in article_list[0:20]:
                 article_title_list.append(_article["title"])
                 article_browse_list.append(_article["browse"])
 
+            today = datetime.datetime.now()
+            start = today - datetime.timedelta(days=30)
             # 访问量相关数据
-            browse_query = Browse.objects.all()
+            browse_query = Browse.objects.filter(browse_time__gte=start)
             # 总访问量
             browse_num = browse_query.count()
             # 日访问量
-            date_info = list(Browse.objects.values_list("browse_time", flat=True))
+            date_info = list(
+                Browse.objects.filter(browse_time__gte=start).values_list("browse_time", flat=True))
             date_list = list(set([i.strftime("%Y-%m-%d") for i in date_info]))
             date_list.sort()
 

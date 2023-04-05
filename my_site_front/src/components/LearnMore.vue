@@ -32,9 +32,18 @@
             <div>
                 <h3 class="tools-title">{{ titpTitle }}</h3>
             </div>
-            <ul class="tool-list">
-                <li v-for="article in articleList" :key="article.id" @click="getArticleContent(article.id)">{{ article.title }}</li>
-            </ul>
+            <el-row :gutter="40">
+                <el-col :span="12">
+                    <ul class="tool-list">
+                        <li v-for="article in articleListLeft" :key="article.id" @click="getArticleContent(article.id)">{{ article.title }}</li>
+                    </ul>
+                </el-col>
+                <el-col :span="12">
+                    <ul class="tool-list">
+                        <li v-for="article in articleListRight" :key="article.id" @click="getArticleContent(article.id)">{{ article.title }}</li>
+                    </ul>
+                </el-col>
+            </el-row>
         </div>
 
     </div>
@@ -59,7 +68,8 @@
                 },
                 articleCategoryMap: [],
                 articleTagMap: [],
-                articleList: [],
+                articleListLeft: [],
+                articleListRight: [],
                 titpTitle: "",
             }
         },
@@ -67,7 +77,7 @@
         methods: {
             // 查询所有的文章分类
             getArticleCategory(){
-                this.$http.get("article/category").then(response => {
+                this.$http.get("q/article/category").then(response => {
                     const res = response.data
                     if (res.status_code === 1000){
                         this.articleCategoryMap = res.data
@@ -81,7 +91,7 @@
 
             // 查询所有文章标签
             getArticleTags(){
-                this.$http.get("article/tags").then(response => {
+                this.$http.get("q/article/tags").then(response => {
                     const res = response.data
                     if (res.status_code === 1000){
                         this.articleTagMap = res.data
@@ -96,10 +106,11 @@
             // 根据文章分类查询文章内容
             getArticleByCategory(cate, cid){
                 this.titpTitle = "文章分类【" + cate + "】"
-                this.$http.get("article/search_by_category?cid=" + cid).then(response => {
+                this.$http.get("q/article/search_by_category?cid=" + cid).then(response => {
                     const res = response.data
                     if (res.status_code === 1000){
-                        this.articleList = res.data
+                        this.articleListLeft = res.data.slice(0, Math.ceil(res.data.length / 2))
+                        this.articleListRight = res.data.slice(Math.ceil(res.data.length / 2))
                     }
                 })
             },
@@ -107,10 +118,11 @@
             // 根据文章标签查询文章内容
             getArticleByTag(tag, tid){
                 this.titpTitle = "文章标签【" + tag + "】"
-                this.$http.get("article/search_by_tag?tid=" + tid).then(response => {
+                this.$http.get("q/article/search_by_tag?tid=" + tid).then(response => {
                     const res = response.data
                     if (res.status_code === 1000){
-                        this.articleList = res.data
+                        this.articleListLeft = res.data.slice(0, Math.ceil(res.data.length / 2))
+                        this.articleListRight = res.data.slice(Math.ceil(res.data.length / 2))
                     }
                 })
             },
