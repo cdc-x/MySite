@@ -77,7 +77,7 @@ class QueryHotArticleListView(APIView):
     @staticmethod
     def get(request):
         try:
-            data_list = list(Article.objects.values("title", "id").order_by("browse")[0:10])
+            data_list = list(Article.objects.values("title", "id").order_by("-browse")[0:10])
             ret_data = {"status_code": 1000, "data": data_list}
             logger.info(f"【查询热门文章】-【成功】- 文章数：{len(data_list)}")
         except Exception as e:
