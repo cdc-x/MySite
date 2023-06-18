@@ -6,5 +6,5 @@ urlpatterns = [
     url('^admin/', include("TagManage.urls")),
     url('^admin/', include("ArticleManage.urls")),
     url('^admin/', include("CommonManage.urls")),
-    url('^', include("QueryManage.urls")),
+    url('^q/', include("QueryManage.urls")),
 ]
