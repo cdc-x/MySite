@@ -4,7 +4,7 @@ import base64
 
 class DES3:
 
-    def __init__(self, key="#5rym@0$r^ma*8#@"):
+    def __init__(self, key=""):
         # 初始化加密对象  使用对称加密算法
         self.encryption = pyDes.triple_des(key, padmode=pyDes.PAD_PKCS5)
 
