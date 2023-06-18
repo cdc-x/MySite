@@ -15,6 +15,10 @@ import {
   TimelineItem,
   Tag,
   Scrollbar,
+  Collapse,
+  CollapseItem,
+  Pagination,
+  Input
 } from 'element-ui'
 import axios from 'axios'
 import mavonEditor from 'mavon-editor'
@@ -36,6 +40,10 @@ Vue.use(TimelineItem)
 Vue.use(Tag)
 Vue.use(Scrollbar)
 Vue.use(mavonEditor)
+Vue.use(Collapse)
+Vue.use(CollapseItem)
+Vue.use(Pagination)
+Vue.use(Input)
 
 Vue.prototype.$wow = wow
 Vue.prototype.$echarts = window.echarts

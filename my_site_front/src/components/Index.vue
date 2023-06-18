@@ -207,7 +207,9 @@
                 <div class="container">
                     <el-row>
                         <el-col :span="24" class="text-center">
-                            <p>Copyright © 2022-2099 CDC-博客 All Rights Reserved V.3.1.3 Power by CDC-博客</p>
+                            <p>Copyright © 2022-2099 CDC-博客 All Rights Reserved V.3.1.3
+                                <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">苏ICP备20044397号-1</a>
+                            </p>
                         </el-col>
                     </el-row>
                 </div>

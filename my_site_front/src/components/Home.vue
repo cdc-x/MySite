@@ -50,7 +50,8 @@
                                 <a class="gzh" @click="showContact('gzh')"><i class="iconfont icon-daohang-gongzhonghaotixing"></i></a>
                             </div>
                             <p class="mt05">
-                                Copyright © 2022-2099 CDC-博客 All Rights Reserved V.3.1.3 Power by CDC-博客
+                                Copyright © 2022-2099 CDC-博客 All Rights Reserved V.3.1.3
+                                <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">苏ICP备20044397号-1</a>
                             </p>
                         </div>
                     </div>
